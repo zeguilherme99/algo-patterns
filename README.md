@@ -65,6 +65,16 @@ npm run dev
 CI runs the Java tests, fails if the committed traces are out of date, builds the site and deploys it
 to GitHub Pages on every push to `main`.
 
+### Recording an animation
+
+```bash
+cd web
+npm run record -- sliding-window/max-sum-subarray-of-size-k --lang pt-BR --out ../recordings
+```
+
+Plays the trace in a headless browser at `?record=1` (site chrome hidden) and writes an MP4, a GIF and
+the raw WebM to the output directory. Options: `--lang en|pt-BR`, `--speed 0.5..3`, `--width`, `--height`.
+
 ## Adding a problem
 
 1. Create a class in `algorithms/.../<pattern>/` that implements `Traceable` and records steps via

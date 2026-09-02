@@ -12,3 +12,6 @@ web/dist/
 *.iml
 .vscode/
 .DS_Store
+
+# Local recordings for posts
+web/recordings/

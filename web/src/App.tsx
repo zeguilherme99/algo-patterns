@@ -1,12 +1,20 @@
-import { Link, Route, Routes } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Link, Route, Routes, useSearchParams } from 'react-router-dom'
 import Home from './pages/Home'
 import PlayerPage from './pages/PlayerPage'
 import { useI18n } from './i18n'
 
 export default function App() {
-  const { t, dict, toggle } = useI18n()
+  const { t, dict, toggle, setLocale } = useI18n()
+  const [params] = useSearchParams()
+  // ?record=1 hides the site chrome for clean screen recordings; ?lang=pt-BR forces a language.
+  const recording = params.has('record')
+  const lang = params.get('lang')
+  useEffect(() => {
+    if (lang === 'en' || lang === 'pt-BR') setLocale(lang)
+  }, [lang, setLocale])
   return (
-    <div className="app">
+    <div className={recording ? 'app recording' : 'app'}>
       <header className="topbar">
         <Link to="/" className="brand">
           <span className="brand-mark">{'{ }'}</span> {t('ui.brand')}
