@@ -13,7 +13,8 @@
     "left" : -1,
     "right" : -1,
     "action" : "init",
-    "message" : "Start with an empty window. sum = 0, best = ∞.",
+    "key" : "init",
+    "params" : { },
     "vars" : {
       "sum" : 0,
       "best" : null
@@ -23,7 +24,13 @@
     "left" : 0,
     "right" : 0,
     "action" : "expand",
-    "message" : "Add nums[0] = 2. sum = 2 < 7.",
+    "key" : "expand.invalid",
+    "params" : {
+      "right" : 0,
+      "value" : 2,
+      "sum" : 2,
+      "target" : 7
+    },
     "vars" : {
       "sum" : 2,
       "best" : null
@@ -33,7 +40,13 @@
     "left" : 0,
     "right" : 1,
     "action" : "expand",
-    "message" : "Add nums[1] = 1. sum = 3 < 7.",
+    "key" : "expand.invalid",
+    "params" : {
+      "right" : 1,
+      "value" : 1,
+      "sum" : 3,
+      "target" : 7
+    },
     "vars" : {
       "sum" : 3,
       "best" : null
@@ -43,7 +56,13 @@
     "left" : 0,
     "right" : 2,
     "action" : "expand",
-    "message" : "Add nums[2] = 5. sum = 8 ≥ 7.",
+    "key" : "expand.valid",
+    "params" : {
+      "right" : 2,
+      "value" : 5,
+      "sum" : 8,
+      "target" : 7
+    },
     "vars" : {
       "sum" : 8,
       "best" : null
@@ -53,7 +72,13 @@
     "left" : 0,
     "right" : 2,
     "action" : "record",
-    "message" : "Window [0, 2] is valid with length 3. New best.",
+    "key" : "record.improved",
+    "params" : {
+      "left" : 0,
+      "right" : 2,
+      "len" : 3,
+      "best" : 3
+    },
     "vars" : {
       "sum" : 8,
       "best" : 3
@@ -63,7 +88,12 @@
     "left" : 1,
     "right" : 2,
     "action" : "shrink",
-    "message" : "Try to shrink: drop nums[0] = 2. sum = 6, no longer valid.",
+    "key" : "shrink.invalid",
+    "params" : {
+      "index" : 0,
+      "value" : 2,
+      "sum" : 6
+    },
     "vars" : {
       "sum" : 6,
       "best" : 3
@@ -73,7 +103,13 @@
     "left" : 1,
     "right" : 3,
     "action" : "expand",
-    "message" : "Add nums[3] = 2. sum = 8 ≥ 7.",
+    "key" : "expand.valid",
+    "params" : {
+      "right" : 3,
+      "value" : 2,
+      "sum" : 8,
+      "target" : 7
+    },
     "vars" : {
       "sum" : 8,
       "best" : 3
@@ -83,7 +119,13 @@
     "left" : 1,
     "right" : 3,
     "action" : "record",
-    "message" : "Window [1, 3] is valid with length 3. Not better than 3.",
+    "key" : "record.notImproved",
+    "params" : {
+      "left" : 1,
+      "right" : 3,
+      "len" : 3,
+      "best" : 3
+    },
     "vars" : {
       "sum" : 8,
       "best" : 3
@@ -93,7 +135,12 @@
     "left" : 2,
     "right" : 3,
     "action" : "shrink",
-    "message" : "Try to shrink: drop nums[1] = 1. sum = 7, still valid.",
+    "key" : "shrink.stillValid",
+    "params" : {
+      "index" : 1,
+      "value" : 1,
+      "sum" : 7
+    },
     "vars" : {
       "sum" : 7,
       "best" : 3
@@ -103,7 +150,13 @@
     "left" : 2,
     "right" : 3,
     "action" : "record",
-    "message" : "Window [2, 3] is valid with length 2. New best.",
+    "key" : "record.improved",
+    "params" : {
+      "left" : 2,
+      "right" : 3,
+      "len" : 2,
+      "best" : 2
+    },
     "vars" : {
       "sum" : 7,
       "best" : 2
@@ -113,7 +166,12 @@
     "left" : 3,
     "right" : 3,
     "action" : "shrink",
-    "message" : "Try to shrink: drop nums[2] = 5. sum = 2, no longer valid.",
+    "key" : "shrink.invalid",
+    "params" : {
+      "index" : 2,
+      "value" : 5,
+      "sum" : 2
+    },
     "vars" : {
       "sum" : 2,
       "best" : 2
@@ -123,7 +181,13 @@
     "left" : 3,
     "right" : 4,
     "action" : "expand",
-    "message" : "Add nums[4] = 3. sum = 5 < 7.",
+    "key" : "expand.invalid",
+    "params" : {
+      "right" : 4,
+      "value" : 3,
+      "sum" : 5,
+      "target" : 7
+    },
     "vars" : {
       "sum" : 5,
       "best" : 2
@@ -133,7 +197,13 @@
     "left" : 3,
     "right" : 5,
     "action" : "expand",
-    "message" : "Add nums[5] = 2. sum = 7 ≥ 7.",
+    "key" : "expand.valid",
+    "params" : {
+      "right" : 5,
+      "value" : 2,
+      "sum" : 7,
+      "target" : 7
+    },
     "vars" : {
       "sum" : 7,
       "best" : 2
@@ -143,7 +213,13 @@
     "left" : 3,
     "right" : 5,
     "action" : "record",
-    "message" : "Window [3, 5] is valid with length 3. Not better than 2.",
+    "key" : "record.notImproved",
+    "params" : {
+      "left" : 3,
+      "right" : 5,
+      "len" : 3,
+      "best" : 2
+    },
     "vars" : {
       "sum" : 7,
       "best" : 2
@@ -153,7 +229,12 @@
     "left" : 4,
     "right" : 5,
     "action" : "shrink",
-    "message" : "Try to shrink: drop nums[3] = 2. sum = 5, no longer valid.",
+    "key" : "shrink.invalid",
+    "params" : {
+      "index" : 3,
+      "value" : 2,
+      "sum" : 5
+    },
     "vars" : {
       "sum" : 5,
       "best" : 2
@@ -163,7 +244,10 @@
     "left" : -1,
     "right" : -1,
     "action" : "done",
-    "message" : "Right pointer reached the end. Answer: 2.",
+    "key" : "done",
+    "params" : {
+      "answer" : 2
+    },
     "vars" : {
       "best" : 2
     }

@@ -9,6 +9,8 @@ import java.util.Map;
 /**
  * A complete recording of one algorithm run: metadata, input, result and every {@link Step}.
  * The frontend replays this object; it never re-executes the algorithm.
+ * <p>
+ * {@code title} and {@code problem} are English fallbacks; the frontend prefers its own dictionaries.
  */
 public final class Trace {
 
@@ -30,16 +32,26 @@ public final class Trace {
         this.input = input;
     }
 
-    /** Records a step. {@code vars} are given as alternating key/value pairs to keep call sites short. */
-    public void step(int line, int left, int right, String action, String message, Object... vars) {
-        if (vars.length % 2 != 0) {
-            throw new IllegalArgumentException("vars must be key/value pairs");
+    /**
+     * Records a step.
+     *
+     * @param params message parameters, built with {@link #kv(Object...)}
+     * @param vars   variable snapshot as alternating key/value pairs
+     */
+    public void step(int line, int left, int right, String action, String key, Map<String, Object> params, Object... vars) {
+        steps.add(new Step(line, left, right, action, key, params, kv(vars)));
+    }
+
+    /** Builds an insertion-ordered map from alternating key/value pairs. Null values are allowed. */
+    public static Map<String, Object> kv(Object... pairs) {
+        if (pairs.length % 2 != 0) {
+            throw new IllegalArgumentException("expected key/value pairs");
         }
-        Map<String, Object> snapshot = new LinkedHashMap<>();
-        for (int i = 0; i < vars.length; i += 2) {
-            snapshot.put(String.valueOf(vars[i]), vars[i + 1]);
+        Map<String, Object> map = new LinkedHashMap<>();
+        for (int i = 0; i < pairs.length; i += 2) {
+            map.put(String.valueOf(pairs[i]), pairs[i + 1]);
         }
-        steps.add(new Step(line, left, right, action, message, snapshot));
+        return map;
     }
 
     public void finish(Object result) {

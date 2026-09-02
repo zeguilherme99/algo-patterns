@@ -18,9 +18,13 @@ algorithms/  (Java 21, Maven)          web/  (React + Vite, static)
 ```
 
 The Java code is the source of truth. Each algorithm records a **trace**: a list of steps with the
-pointer positions, the source line being executed, a plain-English message and a snapshot of the
-variables. The traces are committed as JSON under `web/public/traces/`, so the site is fully static
-and never runs Java.
+pointer positions, the source line being executed, a message key with its parameters, and a snapshot
+of the variables. The traces are committed as JSON under `web/public/traces/`, so the site is fully
+static and never runs Java.
+
+Steps carry no prose. The frontend resolves each step's `key` against the active language's
+dictionary in `web/src/i18n/` (English and Brazilian Portuguese today) and interpolates the
+parameters, so translating the site never requires touching Java or regenerating traces.
 
 ## Patterns
 
@@ -64,11 +68,20 @@ to GitHub Pages on every push to `main`.
 ## Adding a problem
 
 1. Create a class in `algorithms/.../<pattern>/` that implements `Traceable` and records steps via
-   `Trace.step(line, left, right, action, message, vars...)`. The `line` refers to the `SNIPPET`
-   shown in the UI.
+   `Trace.step(line, left, right, action, key, params, vars...)`. The `line` refers to the `SNIPPET`
+   shown in the UI; `key` is a dot-separated message key such as `record.improved`.
 2. Register it in `TraceExporter.ALGORITHMS`.
-3. Add tests, run `mvn compile exec:java`, commit the generated JSON.
-4. If it is a new pattern, add its description and template to `web/src/lib/patterns.ts`.
+3. Add the title, problem statement and one template per message key under `traces.<id>` in
+   `web/src/i18n/en.ts` and `web/src/i18n/pt-BR.ts`. Templates use `{param}` placeholders.
+4. Add tests, run `mvn compile exec:java`, commit the generated JSON.
+5. If it is a new pattern, add its code template to `web/src/lib/patterns.ts` and its name, tagline
+   and bullets under `patterns.<slug>` in both dictionaries.
+
+## Languages
+
+The UI is available in English and Brazilian Portuguese. The toggle in the header remembers your
+choice; the first visit follows the browser language. To add a language, copy `web/src/i18n/en.ts`,
+translate it, and register it in `web/src/i18n/index.tsx`.
 
 ## License
 

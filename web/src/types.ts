@@ -5,14 +5,18 @@ export interface Step {
   left: number
   right: number
   action: Action
-  message: string
+  /** Dot-separated message key, resolved against traces.<id>.steps in the dictionaries. */
+  key: string
+  params: Record<string, unknown>
   vars: Record<string, unknown>
 }
 
 export interface Trace {
   id: string
   pattern: string
+  /** English fallback; the UI prefers the dictionary entry. */
   title: string
+  /** English fallback; the UI prefers the dictionary entry. */
   problem: string
   snippet: string
   input: { array: (number | string)[] } & Record<string, unknown>

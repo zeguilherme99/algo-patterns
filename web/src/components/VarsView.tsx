@@ -7,11 +7,11 @@ function fmt(v: unknown): string {
   return String(v)
 }
 
-export default function VarsView({ vars }: { vars: Record<string, unknown> }) {
+export default function VarsView({ vars, title }: { vars: Record<string, unknown>; title: string }) {
   const entries = Object.entries(vars)
   return (
     <div className="vars-view">
-      <div className="panel-title">Variables</div>
+      <div className="panel-title">{title}</div>
       {entries.length === 0 && <p className="muted">—</p>}
       <dl>
         {entries.map(([k, v]) => (

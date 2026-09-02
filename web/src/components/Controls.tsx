@@ -1,3 +1,5 @@
+import { useI18n } from '../i18n'
+
 interface Props {
   index: number
   last: number
@@ -10,17 +12,18 @@ interface Props {
 }
 
 export default function Controls({ index, last, playing, speed, speeds, onSeek, onTogglePlay, onSpeed }: Props) {
+  const { t } = useI18n()
   const atEnd = index >= last
   return (
     <div className="controls">
       <div className="buttons">
-        <button onClick={() => onSeek(0)} disabled={index === 0} title="First (Home)">⏮</button>
-        <button onClick={() => onSeek(index - 1)} disabled={index === 0} title="Previous (←)">◀</button>
-        <button className="primary" onClick={onTogglePlay} title="Play / pause (space)">
-          {playing ? '⏸ Pause' : atEnd ? '↻ Replay' : '▶ Play'}
+        <button onClick={() => onSeek(0)} disabled={index === 0} title={t('ui.first')}>⏮</button>
+        <button onClick={() => onSeek(index - 1)} disabled={index === 0} title={t('ui.prev')}>◀</button>
+        <button className="primary" onClick={onTogglePlay} title={t('ui.playPause')}>
+          {playing ? `⏸ ${t('ui.pause')}` : atEnd ? `↻ ${t('ui.replay')}` : `▶ ${t('ui.play')}`}
         </button>
-        <button onClick={() => onSeek(index + 1)} disabled={atEnd} title="Next (→)">▶</button>
-        <button onClick={() => onSeek(last)} disabled={atEnd} title="Last (End)">⏭</button>
+        <button onClick={() => onSeek(index + 1)} disabled={atEnd} title={t('ui.next')}>▶</button>
+        <button onClick={() => onSeek(last)} disabled={atEnd} title={t('ui.last')}>⏭</button>
       </div>
       <input
         type="range"
@@ -28,12 +31,12 @@ export default function Controls({ index, last, playing, speed, speeds, onSeek, 
         max={last}
         value={index}
         onChange={(e) => onSeek(Number(e.target.value))}
-        aria-label="Step"
+        aria-label={t('ui.seek')}
       />
       <div className="controls-meta">
-        <span className="muted">step {index + 1} / {last + 1}</span>
+        <span className="muted">{t('ui.step', { i: index + 1, n: last + 1 })}</span>
         <label className="speed">
-          <span className="muted">speed</span>
+          <span className="muted">{t('ui.speed')}</span>
           <select value={speed} onChange={(e) => onSpeed(Number(e.target.value))}>
             {speeds.map((s) => <option key={s} value={s}>{s}×</option>)}
           </select>

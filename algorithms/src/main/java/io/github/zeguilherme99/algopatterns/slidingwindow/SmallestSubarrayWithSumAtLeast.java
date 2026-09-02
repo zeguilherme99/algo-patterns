@@ -7,6 +7,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import static io.github.zeguilherme99.algopatterns.trace.Trace.kv;
+
 /**
  * Variable-size sliding window (grow until valid, then shrink while still valid).
  * <p>
@@ -14,6 +16,8 @@ import java.util.Map;
  * subarray whose sum is greater than or equal to the target. Return 0 if none exists.
  */
 public final class SmallestSubarrayWithSumAtLeast implements Traceable {
+
+    public static final String ID = "sliding-window/smallest-subarray-with-sum-at-least";
 
     static final String SNIPPET = """
             int minLength(int[] nums, int target) {
@@ -33,42 +37,38 @@ public final class SmallestSubarrayWithSumAtLeast implements Traceable {
     }
 
     public Trace trace(int[] nums, int target) {
-        Trace t = new Trace(
-                "sliding-window/smallest-subarray-with-sum-at-least",
-                "sliding-window",
+        Trace t = new Trace(ID, "sliding-window",
                 "Smallest Subarray With Sum ≥ Target",
                 "Given an array of positive integers and a target, find the length of the smallest contiguous subarray whose sum is at least the target.",
                 SNIPPET,
                 Map.of("array", Arrays.stream(nums).boxed().toList(), "target", target));
 
         int left = 0, sum = 0, best = Integer.MAX_VALUE;
-        t.step(2, -1, -1, "init", "Start with an empty window. sum = 0, best = ∞.", "sum", sum, "best", null);
+        t.step(2, -1, -1, "init", "init", kv(), "sum", sum, "best", null);
 
         for (int right = 0; right < nums.length; right++) {
             sum += nums[right];
-            t.step(4, left, right, "expand",
-                    "Add nums[" + right + "] = " + nums[right] + ". sum = " + sum + (sum >= target ? " ≥ " : " < ") + target + ".",
+            t.step(4, left, right, "expand", sum >= target ? "expand.valid" : "expand.invalid",
+                    kv("right", right, "value", nums[right], "sum", sum, "target", target),
                     "sum", sum, "best", best == Integer.MAX_VALUE ? null : best);
 
             while (sum >= target) {
                 int len = right - left + 1;
                 boolean improved = len < best;
                 best = Math.min(best, len);
-                t.step(6, left, right, "record",
-                        "Window [" + left + ", " + right + "] is valid with length " + len + "."
-                                + (improved ? " New best." : " Not better than " + best + "."),
+                t.step(6, left, right, "record", improved ? "record.improved" : "record.notImproved",
+                        kv("left", left, "right", right, "len", len, "best", best),
                         "sum", sum, "best", best);
 
                 sum -= nums[left];
                 left++;
-                t.step(7, left, right, "shrink",
-                        "Try to shrink: drop nums[" + (left - 1) + "] = " + nums[left - 1] + ". sum = " + sum
-                                + (sum >= target ? ", still valid." : ", no longer valid."),
+                t.step(7, left, right, "shrink", sum >= target ? "shrink.stillValid" : "shrink.invalid",
+                        kv("index", left - 1, "value", nums[left - 1], "sum", sum),
                         "sum", sum, "best", best);
             }
         }
         int answer = best == Integer.MAX_VALUE ? 0 : best;
-        t.step(10, -1, -1, "done", "Right pointer reached the end. Answer: " + answer + ".", "best", answer);
+        t.step(10, -1, -1, "done", "done", kv("answer", answer), "best", answer);
         t.finish(answer);
         return t;
     }

@@ -4,11 +4,13 @@ import ArrayView from './ArrayView'
 import CodeView from './CodeView'
 import Controls from './Controls'
 import VarsView from './VarsView'
+import { useI18n } from '../i18n'
 
 const SPEEDS = [0.5, 1, 1.5, 2, 3] as const
 const BASE_MS = 1100
 
 export default function TracePlayer({ trace }: { trace: Trace }) {
+  const { t, tOptional } = useI18n()
   const [index, setIndex] = useState(0)
   const [playing, setPlaying] = useState(false)
   const [speed, setSpeed] = useState<number>(1)
@@ -67,15 +69,15 @@ export default function TracePlayer({ trace }: { trace: Trace }) {
             <span key={k} className="param"><span className="muted">{k} =</span> {String(v)}</span>
           ))}
           <span className="param result">
-            <span className="muted">result =</span> {index === last ? String(trace.result) : '?'}
+            <span className="muted">{t('ui.result')} =</span> {index === last ? String(trace.result) : '?'}
           </span>
         </div>
 
         <ArrayView values={trace.input.array} left={step.left} right={step.right} action={step.action} />
 
         <div className={`message action-${step.action}`}>
-          <span className="action-pill">{step.action}</span>
-          <span>{step.message}</span>
+          <span className="action-pill">{t(`actions.${step.action}`)}</span>
+          <span>{tOptional(`traces.${trace.id}.steps.${step.key}`, { ...step.vars, ...step.params }) ?? step.key}</span>
         </div>
 
         <Controls
@@ -91,8 +93,8 @@ export default function TracePlayer({ trace }: { trace: Trace }) {
       </div>
 
       <aside className="player-side">
-        <CodeView snippet={trace.snippet} line={step.line} />
-        <VarsView vars={step.vars} />
+        <CodeView snippet={trace.snippet} line={step.line} title={t('ui.reference')} />
+        <VarsView vars={step.vars} title={t('ui.variables')} />
       </aside>
     </section>
   )

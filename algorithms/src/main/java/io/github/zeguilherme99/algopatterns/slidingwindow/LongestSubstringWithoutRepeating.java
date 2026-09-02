@@ -8,12 +8,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import static io.github.zeguilherme99.algopatterns.trace.Trace.kv;
+
 /**
  * Variable-size sliding window with a lookup map (the "jump the left pointer" variant).
  * <p>
  * Given a string, find the length of the longest substring with no repeated characters.
  */
 public final class LongestSubstringWithoutRepeating implements Traceable {
+
+    public static final String ID = "sliding-window/longest-substring-without-repeating";
 
     static final String SNIPPET = """
             int longest(String s) {
@@ -35,9 +39,7 @@ public final class LongestSubstringWithoutRepeating implements Traceable {
     }
 
     public Trace trace(String s) {
-        Trace t = new Trace(
-                "sliding-window/longest-substring-without-repeating",
-                "sliding-window",
+        Trace t = new Trace(ID, "sliding-window",
                 "Longest Substring Without Repeating Characters",
                 "Given a string, find the length of the longest substring that contains no repeated characters.",
                 SNIPPET,
@@ -45,35 +47,33 @@ public final class LongestSubstringWithoutRepeating implements Traceable {
 
         Map<Character, Integer> lastSeen = new HashMap<>();
         int left = 0, best = 0;
-        t.step(3, -1, -1, "init", "Start with an empty window and an empty lastSeen map.", "best", best, "lastSeen", snapshot(lastSeen));
+        t.step(3, -1, -1, "init", "init", kv(), "best", best, "lastSeen", snapshot(lastSeen));
 
         for (int right = 0; right < s.length(); right++) {
             char c = s.charAt(right);
-            t.step(5, left, right, "expand", "Move right to " + right + ": c = '" + c + "'.",
-                    "c", String.valueOf(c), "best", best, "lastSeen", snapshot(lastSeen));
+            String ch = String.valueOf(c);
+            t.step(5, left, right, "expand", "expand", kv("right", right, "c", ch),
+                    "c", ch, "best", best, "lastSeen", snapshot(lastSeen));
 
             if (lastSeen.containsKey(c) && lastSeen.get(c) >= left) {
                 int dup = lastSeen.get(c);
                 left = dup + 1;
-                t.step(7, left, right, "shrink",
-                        "'" + c + "' was already seen at index " + dup + " inside the window. Jump left to " + left + ".",
-                        "c", String.valueOf(c), "best", best, "lastSeen", snapshot(lastSeen));
+                t.step(7, left, right, "shrink", "shrink", kv("c", ch, "dup", dup, "left", left),
+                        "c", ch, "best", best, "lastSeen", snapshot(lastSeen));
             } else if (lastSeen.containsKey(c)) {
-                t.step(6, left, right, "check",
-                        "'" + c + "' was seen at index " + lastSeen.get(c) + ", but that is before left = " + left + ". Ignore it.",
-                        "c", String.valueOf(c), "best", best, "lastSeen", snapshot(lastSeen));
+                t.step(6, left, right, "check", "check", kv("c", ch, "seen", lastSeen.get(c), "left", left),
+                        "c", ch, "best", best, "lastSeen", snapshot(lastSeen));
             }
 
             lastSeen.put(c, right);
             int len = right - left + 1;
             boolean improved = len > best;
             best = Math.max(best, len);
-            t.step(10, left, right, "record",
-                    "Remember '" + c + "' at " + right + ". Window [" + left + ", " + right + "] has length " + len + "."
-                            + (improved ? " New best." : ""),
-                    "c", String.valueOf(c), "best", best, "lastSeen", snapshot(lastSeen));
+            t.step(10, left, right, "record", improved ? "record.improved" : "record.notImproved",
+                    kv("c", ch, "right", right, "left", left, "len", len),
+                    "c", ch, "best", best, "lastSeen", snapshot(lastSeen));
         }
-        t.step(12, -1, -1, "done", "Reached the end of the string. Answer: " + best + ".", "best", best);
+        t.step(12, -1, -1, "done", "done", kv("best", best), "best", best);
         t.finish(best);
         return t;
     }

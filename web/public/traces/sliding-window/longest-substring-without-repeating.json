@@ -13,7 +13,8 @@
     "left" : -1,
     "right" : -1,
     "action" : "init",
-    "message" : "Start with an empty window and an empty lastSeen map.",
+    "key" : "init",
+    "params" : { },
     "vars" : {
       "best" : 0,
       "lastSeen" : { }
@@ -23,7 +24,11 @@
     "left" : 0,
     "right" : 0,
     "action" : "expand",
-    "message" : "Move right to 0: c = 'a'.",
+    "key" : "expand",
+    "params" : {
+      "right" : 0,
+      "c" : "a"
+    },
     "vars" : {
       "c" : "a",
       "best" : 0,
@@ -34,7 +39,13 @@
     "left" : 0,
     "right" : 0,
     "action" : "record",
-    "message" : "Remember 'a' at 0. Window [0, 0] has length 1. New best.",
+    "key" : "record.improved",
+    "params" : {
+      "c" : "a",
+      "right" : 0,
+      "left" : 0,
+      "len" : 1
+    },
     "vars" : {
       "c" : "a",
       "best" : 1,
@@ -47,7 +58,11 @@
     "left" : 0,
     "right" : 1,
     "action" : "expand",
-    "message" : "Move right to 1: c = 'b'.",
+    "key" : "expand",
+    "params" : {
+      "right" : 1,
+      "c" : "b"
+    },
     "vars" : {
       "c" : "b",
       "best" : 1,
@@ -60,7 +75,13 @@
     "left" : 0,
     "right" : 1,
     "action" : "record",
-    "message" : "Remember 'b' at 1. Window [0, 1] has length 2. New best.",
+    "key" : "record.improved",
+    "params" : {
+      "c" : "b",
+      "right" : 1,
+      "left" : 0,
+      "len" : 2
+    },
     "vars" : {
       "c" : "b",
       "best" : 2,
@@ -74,7 +95,11 @@
     "left" : 0,
     "right" : 2,
     "action" : "expand",
-    "message" : "Move right to 2: c = 'c'.",
+    "key" : "expand",
+    "params" : {
+      "right" : 2,
+      "c" : "c"
+    },
     "vars" : {
       "c" : "c",
       "best" : 2,
@@ -88,7 +113,13 @@
     "left" : 0,
     "right" : 2,
     "action" : "record",
-    "message" : "Remember 'c' at 2. Window [0, 2] has length 3. New best.",
+    "key" : "record.improved",
+    "params" : {
+      "c" : "c",
+      "right" : 2,
+      "left" : 0,
+      "len" : 3
+    },
     "vars" : {
       "c" : "c",
       "best" : 3,
@@ -103,7 +134,11 @@
     "left" : 0,
     "right" : 3,
     "action" : "expand",
-    "message" : "Move right to 3: c = 'a'.",
+    "key" : "expand",
+    "params" : {
+      "right" : 3,
+      "c" : "a"
+    },
     "vars" : {
       "c" : "a",
       "best" : 3,
@@ -118,7 +153,12 @@
     "left" : 1,
     "right" : 3,
     "action" : "shrink",
-    "message" : "'a' was already seen at index 0 inside the window. Jump left to 1.",
+    "key" : "shrink",
+    "params" : {
+      "c" : "a",
+      "dup" : 0,
+      "left" : 1
+    },
     "vars" : {
       "c" : "a",
       "best" : 3,
@@ -133,7 +173,13 @@
     "left" : 1,
     "right" : 3,
     "action" : "record",
-    "message" : "Remember 'a' at 3. Window [1, 3] has length 3.",
+    "key" : "record.notImproved",
+    "params" : {
+      "c" : "a",
+      "right" : 3,
+      "left" : 1,
+      "len" : 3
+    },
     "vars" : {
       "c" : "a",
       "best" : 3,
@@ -148,7 +194,11 @@
     "left" : 1,
     "right" : 4,
     "action" : "expand",
-    "message" : "Move right to 4: c = 'b'.",
+    "key" : "expand",
+    "params" : {
+      "right" : 4,
+      "c" : "b"
+    },
     "vars" : {
       "c" : "b",
       "best" : 3,
@@ -163,7 +213,12 @@
     "left" : 2,
     "right" : 4,
     "action" : "shrink",
-    "message" : "'b' was already seen at index 1 inside the window. Jump left to 2.",
+    "key" : "shrink",
+    "params" : {
+      "c" : "b",
+      "dup" : 1,
+      "left" : 2
+    },
     "vars" : {
       "c" : "b",
       "best" : 3,
@@ -178,7 +233,13 @@
     "left" : 2,
     "right" : 4,
     "action" : "record",
-    "message" : "Remember 'b' at 4. Window [2, 4] has length 3.",
+    "key" : "record.notImproved",
+    "params" : {
+      "c" : "b",
+      "right" : 4,
+      "left" : 2,
+      "len" : 3
+    },
     "vars" : {
       "c" : "b",
       "best" : 3,
@@ -193,7 +254,11 @@
     "left" : 2,
     "right" : 5,
     "action" : "expand",
-    "message" : "Move right to 5: c = 'c'.",
+    "key" : "expand",
+    "params" : {
+      "right" : 5,
+      "c" : "c"
+    },
     "vars" : {
       "c" : "c",
       "best" : 3,
@@ -208,7 +273,12 @@
     "left" : 3,
     "right" : 5,
     "action" : "shrink",
-    "message" : "'c' was already seen at index 2 inside the window. Jump left to 3.",
+    "key" : "shrink",
+    "params" : {
+      "c" : "c",
+      "dup" : 2,
+      "left" : 3
+    },
     "vars" : {
       "c" : "c",
       "best" : 3,
@@ -223,7 +293,13 @@
     "left" : 3,
     "right" : 5,
     "action" : "record",
-    "message" : "Remember 'c' at 5. Window [3, 5] has length 3.",
+    "key" : "record.notImproved",
+    "params" : {
+      "c" : "c",
+      "right" : 5,
+      "left" : 3,
+      "len" : 3
+    },
     "vars" : {
       "c" : "c",
       "best" : 3,
@@ -238,7 +314,11 @@
     "left" : 3,
     "right" : 6,
     "action" : "expand",
-    "message" : "Move right to 6: c = 'b'.",
+    "key" : "expand",
+    "params" : {
+      "right" : 6,
+      "c" : "b"
+    },
     "vars" : {
       "c" : "b",
       "best" : 3,
@@ -253,7 +333,12 @@
     "left" : 5,
     "right" : 6,
     "action" : "shrink",
-    "message" : "'b' was already seen at index 4 inside the window. Jump left to 5.",
+    "key" : "shrink",
+    "params" : {
+      "c" : "b",
+      "dup" : 4,
+      "left" : 5
+    },
     "vars" : {
       "c" : "b",
       "best" : 3,
@@ -268,7 +353,13 @@
     "left" : 5,
     "right" : 6,
     "action" : "record",
-    "message" : "Remember 'b' at 6. Window [5, 6] has length 2.",
+    "key" : "record.notImproved",
+    "params" : {
+      "c" : "b",
+      "right" : 6,
+      "left" : 5,
+      "len" : 2
+    },
     "vars" : {
       "c" : "b",
       "best" : 3,
@@ -283,7 +374,11 @@
     "left" : 5,
     "right" : 7,
     "action" : "expand",
-    "message" : "Move right to 7: c = 'b'.",
+    "key" : "expand",
+    "params" : {
+      "right" : 7,
+      "c" : "b"
+    },
     "vars" : {
       "c" : "b",
       "best" : 3,
@@ -298,7 +393,12 @@
     "left" : 7,
     "right" : 7,
     "action" : "shrink",
-    "message" : "'b' was already seen at index 6 inside the window. Jump left to 7.",
+    "key" : "shrink",
+    "params" : {
+      "c" : "b",
+      "dup" : 6,
+      "left" : 7
+    },
     "vars" : {
       "c" : "b",
       "best" : 3,
@@ -313,7 +413,13 @@
     "left" : 7,
     "right" : 7,
     "action" : "record",
-    "message" : "Remember 'b' at 7. Window [7, 7] has length 1.",
+    "key" : "record.notImproved",
+    "params" : {
+      "c" : "b",
+      "right" : 7,
+      "left" : 7,
+      "len" : 1
+    },
     "vars" : {
       "c" : "b",
       "best" : 3,
@@ -328,7 +434,10 @@
     "left" : -1,
     "right" : -1,
     "action" : "done",
-    "message" : "Reached the end of the string. Answer: 3.",
+    "key" : "done",
+    "params" : {
+      "best" : 3
+    },
     "vars" : {
       "best" : 3
     }

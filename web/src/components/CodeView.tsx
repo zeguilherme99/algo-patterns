@@ -1,8 +1,8 @@
-export default function CodeView({ snippet, line }: { snippet: string; line: number }) {
+export default function CodeView({ snippet, line, title }: { snippet: string; line: number; title: string }) {
   const lines = snippet.split('\n')
   return (
     <div className="code-view">
-      <div className="panel-title">Reference (Java)</div>
+      <div className="panel-title">{title}</div>
       <pre>
         {lines.map((text, i) => {
           const n = i + 1
