@@ -1,0 +1,192 @@
+{
+  "id" : "sliding-window/max-sum-subarray-of-size-k",
+  "pattern" : "sliding-window",
+  "title" : "Maximum Sum Subarray of Size K",
+  "problem" : "Given an array of integers and a number k, find the maximum sum of any contiguous subarray of size k.",
+  "snippet" : "int maxSum(int[] nums, int k) {\n    int sum = 0, best = Integer.MIN_VALUE;\n    for (int right = 0; right < nums.length; right++) {\n        sum += nums[right];                 // expand: add the new element\n        if (right >= k - 1) {               // window has k elements\n            best = Math.max(best, sum);     // record the answer\n            sum -= nums[right - k + 1];     // shrink: drop the leftmost\n        }\n    }\n    return best;\n}",
+  "input" : {
+    "k" : 3,
+    "array" : [ 2, 1, 5, 1, 3, 2 ]
+  },
+  "steps" : [ {
+    "line" : 2,
+    "left" : -1,
+    "right" : -1,
+    "action" : "init",
+    "message" : "Start with an empty window. sum = 0, best = -∞.",
+    "vars" : {
+      "sum" : 0,
+      "best" : null
+    }
+  }, {
+    "line" : 4,
+    "left" : 0,
+    "right" : 0,
+    "action" : "expand",
+    "message" : "Move right to 0 and add nums[0] = 2 to the sum.",
+    "vars" : {
+      "sum" : 2,
+      "best" : null
+    }
+  }, {
+    "line" : 5,
+    "left" : 0,
+    "right" : 0,
+    "action" : "wait",
+    "message" : "Only 1 element(s) so far; keep expanding until the window has 3.",
+    "vars" : {
+      "sum" : 2,
+      "best" : null
+    }
+  }, {
+    "line" : 4,
+    "left" : 0,
+    "right" : 1,
+    "action" : "expand",
+    "message" : "Move right to 1 and add nums[1] = 1 to the sum.",
+    "vars" : {
+      "sum" : 3,
+      "best" : null
+    }
+  }, {
+    "line" : 5,
+    "left" : 0,
+    "right" : 1,
+    "action" : "wait",
+    "message" : "Only 2 element(s) so far; keep expanding until the window has 3.",
+    "vars" : {
+      "sum" : 3,
+      "best" : null
+    }
+  }, {
+    "line" : 4,
+    "left" : 0,
+    "right" : 2,
+    "action" : "expand",
+    "message" : "Move right to 2 and add nums[2] = 5 to the sum.",
+    "vars" : {
+      "sum" : 8,
+      "best" : null
+    }
+  }, {
+    "line" : 6,
+    "left" : 0,
+    "right" : 2,
+    "action" : "record",
+    "message" : "Window [0, 2] has 3 elements. sum = 8 is a new best.",
+    "vars" : {
+      "sum" : 8,
+      "best" : 8
+    }
+  }, {
+    "line" : 7,
+    "left" : 1,
+    "right" : 2,
+    "action" : "shrink",
+    "message" : "Drop nums[0] = 2 from the left so the window keeps size 3.",
+    "vars" : {
+      "sum" : 6,
+      "best" : 8
+    }
+  }, {
+    "line" : 4,
+    "left" : 1,
+    "right" : 3,
+    "action" : "expand",
+    "message" : "Move right to 3 and add nums[3] = 1 to the sum.",
+    "vars" : {
+      "sum" : 7,
+      "best" : 8
+    }
+  }, {
+    "line" : 6,
+    "left" : 1,
+    "right" : 3,
+    "action" : "record",
+    "message" : "Window [1, 3] has 3 elements. sum = 7 does not beat best = 8.",
+    "vars" : {
+      "sum" : 7,
+      "best" : 8
+    }
+  }, {
+    "line" : 7,
+    "left" : 2,
+    "right" : 3,
+    "action" : "shrink",
+    "message" : "Drop nums[1] = 1 from the left so the window keeps size 3.",
+    "vars" : {
+      "sum" : 6,
+      "best" : 8
+    }
+  }, {
+    "line" : 4,
+    "left" : 2,
+    "right" : 4,
+    "action" : "expand",
+    "message" : "Move right to 4 and add nums[4] = 3 to the sum.",
+    "vars" : {
+      "sum" : 9,
+      "best" : 8
+    }
+  }, {
+    "line" : 6,
+    "left" : 2,
+    "right" : 4,
+    "action" : "record",
+    "message" : "Window [2, 4] has 3 elements. sum = 9 is a new best.",
+    "vars" : {
+      "sum" : 9,
+      "best" : 9
+    }
+  }, {
+    "line" : 7,
+    "left" : 3,
+    "right" : 4,
+    "action" : "shrink",
+    "message" : "Drop nums[2] = 5 from the left so the window keeps size 3.",
+    "vars" : {
+      "sum" : 4,
+      "best" : 9
+    }
+  }, {
+    "line" : 4,
+    "left" : 3,
+    "right" : 5,
+    "action" : "expand",
+    "message" : "Move right to 5 and add nums[5] = 2 to the sum.",
+    "vars" : {
+      "sum" : 6,
+      "best" : 9
+    }
+  }, {
+    "line" : 6,
+    "left" : 3,
+    "right" : 5,
+    "action" : "record",
+    "message" : "Window [3, 5] has 3 elements. sum = 6 does not beat best = 9.",
+    "vars" : {
+      "sum" : 6,
+      "best" : 9
+    }
+  }, {
+    "line" : 7,
+    "left" : 4,
+    "right" : 5,
+    "action" : "shrink",
+    "message" : "Drop nums[3] = 1 from the left so the window keeps size 3.",
+    "vars" : {
+      "sum" : 5,
+      "best" : 9
+    }
+  }, {
+    "line" : 10,
+    "left" : -1,
+    "right" : -1,
+    "action" : "done",
+    "message" : "Every window of size 3 was seen. Answer: 9.",
+    "vars" : {
+      "best" : 9
+    }
+  } ],
+  "result" : 9
+}

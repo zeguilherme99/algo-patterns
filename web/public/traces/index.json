@@ -1,0 +1,16 @@
+[ {
+  "id" : "sliding-window/max-sum-subarray-of-size-k",
+  "pattern" : "sliding-window",
+  "title" : "Maximum Sum Subarray of Size K",
+  "steps" : 18
+}, {
+  "id" : "sliding-window/smallest-subarray-with-sum-at-least",
+  "pattern" : "sliding-window",
+  "title" : "Smallest Subarray With Sum ≥ Target",
+  "steps" : 16
+}, {
+  "id" : "sliding-window/longest-substring-without-repeating",
+  "pattern" : "sliding-window",
+  "title" : "Longest Substring Without Repeating Characters",
+  "steps" : 23
+} ]

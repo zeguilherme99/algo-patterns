@@ -1,0 +1,14 @@
+# Java / Maven
+algorithms/target/
+*.class
+*.log
+
+# Node / Vite
+web/node_modules/
+web/dist/
+
+# IDE / OS
+.idea/
+*.iml
+.vscode/
+.DS_Store
