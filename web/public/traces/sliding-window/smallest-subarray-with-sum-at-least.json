@@ -5,8 +5,8 @@
   "problem" : "Given an array of positive integers and a target, find the length of the smallest contiguous subarray whose sum is at least the target.",
   "snippet" : "int minLength(int[] nums, int target) {\n    int left = 0, sum = 0, best = Integer.MAX_VALUE;\n    for (int right = 0; right < nums.length; right++) {\n        sum += nums[right];                          // expand\n        while (sum >= target) {                      // window is valid\n            best = Math.min(best, right - left + 1); // record\n            sum -= nums[left++];                     // shrink from the left\n        }\n    }\n    return best == Integer.MAX_VALUE ? 0 : best;\n}",
   "input" : {
-    "target" : 7,
-    "array" : [ 2, 1, 5, 2, 3, 2 ]
+    "array" : [ 2, 1, 5, 2, 3, 2 ],
+    "target" : 7
   },
   "steps" : [ {
     "line" : 2,

@@ -41,7 +41,7 @@ public final class SmallestSubarrayWithSumAtLeast implements Traceable {
                 "Smallest Subarray With Sum ≥ Target",
                 "Given an array of positive integers and a target, find the length of the smallest contiguous subarray whose sum is at least the target.",
                 SNIPPET,
-                Map.of("array", Arrays.stream(nums).boxed().toList(), "target", target));
+                kv("array", Arrays.stream(nums).boxed().toList(), "target", target));
 
         int left = 0, sum = 0, best = Integer.MAX_VALUE;
         t.step(2, -1, -1, "init", "init", kv(), "sum", sum, "best", null);

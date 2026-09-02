@@ -43,7 +43,7 @@ public final class LongestSubstringWithoutRepeating implements Traceable {
                 "Longest Substring Without Repeating Characters",
                 "Given a string, find the length of the longest substring that contains no repeated characters.",
                 SNIPPET,
-                Map.of("array", s.chars().mapToObj(c -> String.valueOf((char) c)).toList(), "string", s));
+                kv("array", s.chars().mapToObj(c -> String.valueOf((char) c)).toList(), "string", s));
 
         Map<Character, Integer> lastSeen = new HashMap<>();
         int left = 0, best = 0;

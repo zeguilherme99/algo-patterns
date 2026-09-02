@@ -42,7 +42,7 @@ public final class MaxSumSubarrayOfSizeK implements Traceable {
                 "Maximum Sum Subarray of Size K",
                 "Given an array of integers and a number k, find the maximum sum of any contiguous subarray of size k.",
                 SNIPPET,
-                Map.of("array", Arrays.stream(nums).boxed().toList(), "k", k));
+                kv("array", Arrays.stream(nums).boxed().toList(), "k", k));
 
         int sum = 0, best = Integer.MIN_VALUE;
         t.step(2, -1, -1, "init", "init", kv(), "sum", sum, "best", null);

@@ -5,8 +5,8 @@
   "problem" : "Given an array of integers and a number k, find the maximum sum of any contiguous subarray of size k.",
   "snippet" : "int maxSum(int[] nums, int k) {\n    int sum = 0, best = Integer.MIN_VALUE;\n    for (int right = 0; right < nums.length; right++) {\n        sum += nums[right];                 // expand: add the new element\n        if (right >= k - 1) {               // window has k elements\n            best = Math.max(best, sum);     // record the answer\n            sum -= nums[right - k + 1];     // shrink: drop the leftmost\n        }\n    }\n    return best;\n}",
   "input" : {
-    "k" : 3,
-    "array" : [ 2, 1, 5, 1, 3, 2 ]
+    "array" : [ 2, 1, 5, 1, 3, 2 ],
+    "k" : 3
   },
   "steps" : [ {
     "line" : 2,
